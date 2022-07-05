@@ -1,0 +1,9 @@
+// env example
+DATABASE_URL="mysql://root:password@localhost:3306/medoka"
+EMAIL_FROM="info@medoka.com"
+MAIL_USERNAME=
+OAUTH_CLIENTID=
+OAUTH_CLIENT_SECRET=
+OAUTH_REFRESH_TOKEN="
+JWT_SECRET=
+FRONTEND_URL="http://localhost:3000"

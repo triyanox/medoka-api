@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+model Manager {
+  id Int @id @default(autoincrement())
+  email String @unique
+  verified Boolean @default(false)
+  password String?
+  firstName String? 
+  lastName String? 
+  gender Gender?
+  phoneNumber Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  Pharmacies Pharmacy[]
+}
+
+model Pharmacy {
+  id Int @id @default(autoincrement()) @unique
+  companyName String
+  serialNumber Int
+  registrationDate DateTime
+  adress String?
+  phoneNumber Int?
+  manager Manager @relation(fields: [managerId], references: [id])
+  managerId Int @map("manager_id") @unique
+}
+
+model VerificationToken {
+  id Int @id @default(autoincrement())
+  token Int
+  managerId Int @map("manager_id") @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model RecoveryToken {
+  id Int @id @default(autoincrement())
+  token String
+  managerId Int @map("manager_id") @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
