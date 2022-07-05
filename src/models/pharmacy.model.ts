@@ -1,3 +1,4 @@
+import { DayName } from "@prisma/client";
 import joi from "joi";
 
 /**
@@ -11,6 +12,33 @@ export interface Pharmacy {
   registrationDate: Date | string;
   adress: string;
   phoneNumber: number;
+  Days: Day[];
+}
+
+/**
+ * @usage
+ * work daya interfce
+ **/
+export interface Day {
+  name: DayName;
+  open: boolean;
+  startsAt: number;
+  endsAt: number;
+}
+
+/**
+ * @usage
+ * format days to be inserted in the database
+ **/
+export function formatDays(Days: Day[]) {
+  return Days.map((day) => {
+    return {
+      name: day.name,
+      open: JSON.parse(day.open.toString()),
+      startsAt: new Date(`1970-01-01T${day.startsAt}:00.000Z`),
+      endsAt: new Date(`1970-01-01T${day.endsAt}:00.000Z`),
+    };
+  });
 }
 
 /**

@@ -31,13 +31,27 @@ model Manager {
 model Pharmacy {
   id Int @id @default(autoincrement()) @unique
   companyName String
-  serialNumber Int
+  serialNumber BigInt
   registrationDate DateTime
   adress String?
   phoneNumber Int?
   manager Manager @relation(fields: [managerId], references: [id])
-  managerId Int @map("manager_id") @unique
+  managerId Int @map("manager_id")
+  avatar String?
+  Days Day[]
 }
+
+model Day {
+  id Int @id @default(autoincrement()) @unique
+  name DayName
+  open Boolean
+  startsAt DateTime 
+  endsAt DateTime
+  pharmacy Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int @map("pharmacy_id")
+}
+
+
 
 model VerificationToken {
   id Int @id @default(autoincrement())
@@ -53,4 +67,14 @@ model RecoveryToken {
   managerId Int @map("manager_id") @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+}
+
+enum DayName {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
 }

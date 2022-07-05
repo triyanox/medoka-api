@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --watch ./src --exec ts-node ./src",
+    "dev": "nodemon --watch ./src --exec ts-node ./src/index.ts",
     "build": "rm -rf ./dist && tsc",
     "start": "rm -rf ./dist && tsc && node ./dist"
   },
