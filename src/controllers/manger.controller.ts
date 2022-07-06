@@ -207,12 +207,11 @@ router.put(
     try {
       let { gender, firstName, lastName, phoneNumber }: Manager = req.body;
       const { error } = validateManagerInfos(req.body);
-      if (error)
-        if (error) {
-          return res.status(400).json({
-            error: error.details[0].message,
-          });
-        }
+      if (error) {
+        return res.status(400).json({
+          error: error.details[0].message,
+        });
+      }
       gender = gender || Gender.Female;
       const updated = await prisma.manager.update({
         where: {
